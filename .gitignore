@@ -1,5 +1,5 @@
 /config/database.yml
-/,idea/*
+/.idea/*
 /.bundle
 /log/*.log
 /tmp
