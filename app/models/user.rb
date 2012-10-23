@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
   attr_accessor   :login
 
+  validates :username, :presence => true,
+                       :uniqueness => true,
+                       :format => { with: /\A[A-z0-9\-_\.]+\z/ },
+                       :length => { in: 2..50 }
+
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
