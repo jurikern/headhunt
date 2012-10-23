@@ -1,0 +1,29 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: headhunt_development
+  host: localhost
+  timeout: 5000
+  pool: 25
+  username: headhunt
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: headhunt_test
+  host: localhost
+  timeout: 5000
+  pool: 25
+  username: headhunt
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: headhunt_production
+  host: localhost
+  timeout: 5000
+  pool: 25
+  username: headhunt
+  password:
