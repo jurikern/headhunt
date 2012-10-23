@@ -21,3 +21,6 @@ gem 'pg'
 gem 'foreigner'
 gem 'jquery-rails'
 gem 'haml-rails'
+
+gem 'devise'
+gem 'devise-encryptable'
