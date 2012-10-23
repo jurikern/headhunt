@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable, :trackable and :omniauthable
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :confirmable, :rememberable, :validatable, :encryptable
+  devise :database_authenticatable, :registerable, :recoverable,
+         :confirmable, :rememberable, :validatable, :encryptable, :omniauthable
 
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
   attr_accessor   :login
@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
                        :uniqueness => true,
                        :format => { with: /\A[A-z0-9\-_\.]+\z/ },
                        :length => { in: 2..50 }
+
+  validates :uid, :allow_blank => true,
+                  :uniqueness => { scope: [:provider] }
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup

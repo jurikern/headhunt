@@ -35,6 +35,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
       ## Token authenticatable
       # t.string :authentication_token
 
+      ## Omniauthable
+
+      t.string :provider, :null => false, :default => ""
+      t.string :uid,      :null => false, :default => ""
 
       t.timestamps
     end
@@ -43,6 +47,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
     add_index :users, :username,             :unique => true
     add_index :users, :reset_password_token, :unique => true
     add_index :users, :confirmation_token,   :unique => true
+    add_index :users, [:provider, :uid]
     # add_index :users, :unlock_token,         :unique => true
     # add_index :users, :authentication_token, :unique => true
   end

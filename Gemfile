@@ -24,3 +24,5 @@ gem 'haml-rails'
 
 gem 'devise'
 gem 'devise-encryptable'
+gem 'omniauth'
+gem 'omniauth-facebook'
