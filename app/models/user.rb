@@ -13,9 +13,6 @@ class User < ActiveRecord::Base
                        :format => { with: /\A[A-z0-9\-_\.]+\z/ },
                        :length => { in: 2..50 }
 
-  validates :uid, :allow_blank => true,
-                  :uniqueness => { scope: [:provider] }
-
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -26,35 +23,51 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
-    provider = Provider.where(:provider => auth.provider, :uid => auth.uid).first
-    unless provider
-      User.transaction do
-        provider = Provider.new(
-            name: auth.provider,
-            uid:  auth.uid,
-        )
-        user = User.find_by_email(auth.info.email) ? provider.user = user : provider.user.create!({
-            username: User.generate_random_username,
-            email:    auth.info.email,
-            password: Devise.friendly_token[4,20]
-        }).confirm!
-        provider.save!
-      end
-    end
-    user
+    provider_name, uid, email = auth.provider, auth.uid, auth.info.email
+    User.find_or_create_and_confirm_by(provider_name, uid, email, nil)
+  end
+
+  def self.find_for_google_oauth2(auth, signed_in_resource=nil)
+    provider_name, uid, email = auth.provider, auth.uid, auth.info['email']
+    User.find_or_create_and_confirm_by(provider_name, uid, email, nil)
   end
 
   protected
 
   def self.generate_random_email
     random_email = "user.#{Random.rand(8)}@headhunt.ee"
-    return random_email if User.exists?(email: random_email)
+    return random_email unless User.exists?(email: random_email)
     User.generate_random_email
   end
 
   def self.generate_random_username
     random_username = "user.#{Random.rand(8)}"
-    return random_username if User.exists?(username: random_username)
+    return random_username unless User.exists?(username: random_username)
     User.generate_random_username
+  end
+
+  def self.find_or_create_and_confirm_by(provider_name, uid, email = nil, username = nil)
+    provider = Provider.where(name: provider_name, uid: uid).first
+    user     = nil
+
+    unless provider
+      User.transaction do
+        user = username.nil? ? User.find_by_email(email) : User.find_by_username(username)
+
+        (user = User.create!({
+            username: username.nil? ? User.generate_random_username : username,
+            email:    email.nil?    ? User.generate_random_email    : email,
+            password: Devise.friendly_token[4,20]
+        })).confirm! if user.nil?
+
+        user.providers.create!(
+            name: provider_name,
+            uid:  uid
+        )
+      end
+    else
+      user = provider.user
+    end
+    user
   end
 end

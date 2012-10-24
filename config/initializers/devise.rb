@@ -204,6 +204,9 @@ Devise.setup do |config|
 
   # ==> OmniAuth
   config.omniauth :facebook, 'APP_ID', 'APP_SECRET', :scope => 'email, offline_access'
+  config.omniauth :google_oauth2, '742606373363.apps.googleusercontent.com',
+                                  'Wge-bLE0iQfvMm4iNCNgsx3_',
+                                  { access_type: 'offline', approval_prompt: '' }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
