@@ -35,13 +35,13 @@ class User < ActiveRecord::Base
   protected
 
   def self.generate_random_email
-    random_email = "user.#{Random.rand(8)}@headhunt.ee"
+    random_email = "user.#{Random.rand(99999999)}@headhunt.ee"
     return random_email unless User.exists?(email: random_email)
     User.generate_random_email
   end
 
   def self.generate_random_username
-    random_username = "user.#{Random.rand(8)}"
+    random_username = "user.#{Random.rand(99999999)}"
     return random_username unless User.exists?(username: random_username)
     User.generate_random_username
   end
