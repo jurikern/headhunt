@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable, :trackable and :omniauthable
+
+  has_many :providers, dependent: :destroy
 
   devise :database_authenticatable, :registerable, :recoverable,
          :confirmable, :rememberable, :validatable, :encryptable, :omniauthable
@@ -24,5 +23,36 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
+  end
+
+  def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
+    provider = Provider.where(:provider => auth.provider, :uid => auth.uid).first
+    unless provider
+      User.transaction do
+        provider = Provider.new(
+            name: auth.provider,
+            uid:  auth.uid,
+        )
+        user = User.find_by_email(auth.info.email) ? provider.user = user : provider.user.create!({
+            username: User.generate_random_username,
+            email:    auth.info.email,
+            password: Devise.friendly_token[4,20]
+        }).confirm!
+        provider.save!
+      end
+    end
+    user
+  end
+
+  protected
+
+  def self.generate_random_email
+    random_email = "user.#{Random.rand(8)}@headhunt.ee"
+    User.exists?(email: random_email) ? return random_email : generate_random_email
+  end
+
+  def self.generate_random_username
+    random_username = "user.#{Random.rand(8)}"
+    User.exists?(username: random_username) ? return random_username : generate_random_username
   end
 end

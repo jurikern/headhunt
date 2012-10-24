@@ -9,9 +9,10 @@ Headhunt::Application.routes.draw do
                  :registration => 'signup'
              },
              :controllers => {
-                 :registrations => 'users/registrations',
-                 :confirmations => 'users/confirmations',
-                 :passwords     => 'users/passwords',
-                 :sessions      => 'users/sessions'
+                 :registrations      => 'users/registrations',
+                 :confirmations      => 'users/confirmations',
+                 :passwords          => 'users/passwords',
+                 :sessions           => 'users/sessions',
+                 :omniauth_callbacks => 'users/omniauth_callbacks'
              }
 end

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121023201010) do
+ActiveRecord::Schema.define(:version => 20121024191033) do
+
+  create_table "providers", :force => true do |t|
+    t.integer  "user_id",    :default => 0,  :null => false
+    t.string   "name",       :default => "", :null => false
+    t.string   "uid",        :default => "", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "providers", ["name", "uid"], :name => "index_providers_on_name_and_uid", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -25,16 +35,15 @@ ActiveRecord::Schema.define(:version => 20121023201010) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "provider",               :default => "", :null => false
-    t.string   "uid",                    :default => "", :null => false
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["provider", "uid"], :name => "index_users_on_provider_and_uid"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
+
+  add_foreign_key "providers", "users", :name => "providers_user_id_fk"
 
 end
