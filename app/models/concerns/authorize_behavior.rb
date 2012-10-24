@@ -5,6 +5,7 @@ module AuthorizeBehavior
 
   included do
     class_eval do
+
       def self.find_first_by_auth_conditions(warden_conditions)
         conditions = warden_conditions.dup
         if login = conditions.delete(:login)
@@ -34,11 +35,15 @@ module AuthorizeBehavior
           User.transaction do
             user = username.nil? ? User.find_by_email(email) : User.find_by_username(username)
 
-            (user = User.create!({
-                                     username: username.nil? ? User.generate_random_username : username,
-                                     email:    email.nil?    ? User.generate_random_email    : email,
-                                     password: Devise.friendly_token[4,20]
-                                 })).confirm! if user.nil?
+            if user.nil?
+              user = User.new({
+                  username: username.nil? ? User.generate_random_username : username,
+                  email:    email.nil?    ? User.generate_random_email    : email,
+                  password: Devise.friendly_token[4,20]
+              })
+              user.skip_confirmation!
+              user.save!
+            end
 
             user.providers.create!(
                 name: provider_name,
