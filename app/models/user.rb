@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
                        :uniqueness => true,
                        :format => { with: /\A[A-z0-9\-_\.]+\z/ },
                        :length => { in: 2..50 }
+
+  def include_provider?(provider_name)
+    self.providers.map{ |i|i.name }.include?(provider_name)
+  end
 end

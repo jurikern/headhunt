@@ -1,4 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  before_filter :authenticate_user!, only: [:destroy]
 
   def facebook
     @user = User.find_for_facebook_oauth(request.env['omniauth.auth'], current_user)
@@ -25,6 +26,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     authorize
   end
 
+  def destroy
+    provider = current_user.providers.find_by_name(params[:name])
+
+    unless provider.nil?
+      provider.destroy
+      flash[:notice] = I18n.t 'devise.omniauth_callbacks.deleted', kind: params[:name].capitalize
+    end
+    redirect_to edit_user_registration_path
+  end
+
   protected
 
   def authorize
@@ -32,7 +43,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.persisted?
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: provider
-      sign_in_and_redirect @user, :event => :authentication
+      redirect_path = user_signed_in? ? edit_user_registration_path : root_path
+      sign_in @user, :event => :authentication
+      redirect_to redirect_path
     else
       session["devise.#{provider}_data"] = request.env['omniauth.auth']
       redirect_to new_user_registration_url

@@ -17,32 +17,32 @@ module AuthorizeBehavior
 
       def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
         provider_name, uid, email, username = auth.provider, auth.uid, auth.info.email, auth.info.nickname
-        User.find_or_create_and_confirm_by(provider_name, uid, email, username)
+        User.find_or_create_and_confirm_by(provider_name, uid, email, username, signed_in_resource)
       end
 
       def self.find_for_google_oauth2(auth, signed_in_resource=nil)
         provider_name, uid, email = auth.provider, auth.uid, auth.info.email
-        User.find_or_create_and_confirm_by(provider_name, uid, email, nil)
+        User.find_or_create_and_confirm_by(provider_name, uid, email, nil, signed_in_resource)
       end
 
       def self.find_for_linkedin_oauth(auth, signed_in_resource=nil)
         provider_name, uid, email = auth.provider, auth.uid, auth.info.email
-        User.find_or_create_and_confirm_by(provider_name, uid, email, nil)
+        User.find_or_create_and_confirm_by(provider_name, uid, email, nil, signed_in_resource)
       end
 
       def self.find_for_github_oauth(auth, signed_in_resource=nil)
         provider_name, uid, email, username = auth.provider, auth.uid, auth.info.email, auth.info.nickname
-        User.find_or_create_and_confirm_by(provider_name, uid, email, username)
+        User.find_or_create_and_confirm_by(provider_name, uid, email, username, signed_in_resource)
       end
 
       def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
         provider_name, uid, username = auth.provider, auth.uid, auth.info.nickname
-        User.find_or_create_and_confirm_by(provider_name, uid, nil, username)
+        User.find_or_create_and_confirm_by(provider_name, uid, nil, username, signed_in_resource)
       end
 
       protected
 
-      def self.find_or_create_and_confirm_by(provider_name, uid, email = nil, username = nil)
+      def self.find_or_create_and_confirm_by(provider_name, uid, email = nil, username = nil, signed_in_resource = nil)
         provider = Provider.where(name: provider_name, uid: uid).first
         user     = nil
 
@@ -51,19 +51,31 @@ module AuthorizeBehavior
             user = username.nil? ? User.find_by_email(email) : User.find_by_username(username)
 
             if user.nil?
-              user = User.new({
-                  username: User.generate_random_username(username),
-                  email:    email.nil? ? User.generate_random_email : email,
-                  password: Devise.friendly_token[4,20]
-              })
-              user.skip_confirmation!
-              user.save!
+              if signed_in_resource.nil?
+                user = User.new({
+                    username: User.generate_random_username(username),
+                    email:    email.nil? ? User.generate_random_email : email,
+                    password: Devise.friendly_token[4,20]
+                })
+                user.skip_confirmation!
+                user.save!
+              else
+                user = signed_in_resource
+              end
             end
 
-            user.providers.create!(
-                name: provider_name,
-                uid:  uid
-            )
+            similar_provider = user.providers.where(name: provider_name).first
+            if similar_provider.nil?
+              user.providers.create!(
+                  name: provider_name,
+                  uid:  uid
+              )
+            else
+              similar_provider.update_attributes!({
+                  uid: uid
+              })
+            end
+
           end
         else
           user = provider.user

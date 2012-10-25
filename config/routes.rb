@@ -15,4 +15,10 @@ Headhunt::Application.routes.draw do
                  :sessions           => 'users/sessions',
                  :omniauth_callbacks => 'users/omniauth_callbacks'
              }
+
+  devise_scope :user do
+    scope 'auth' do
+      match ':name/destroy' => 'users/omniauth_callbacks#destroy', via: :delete, as: :omniauth_callback
+    end
+  end
 end

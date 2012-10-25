@@ -1,0 +1,9 @@
+- User.omniauth_providers.each do |provider|
+  - if user_signed_in?
+    - has_provider = current_user.include_provider?(provider.to_s)
+    = link_to omniauth_authorize_path(resource_name, provider) do
+      = "#{has_provider ? 'Add' : 'Update'} #{provider.to_s.titleize} connection"
+    - if has_provider
+      = link_to omniauth_callback_path(provider.to_s), method: :delete, :data => { confirm: 'Are you sure?' } do
+        = 'Delete'
+  %br/
