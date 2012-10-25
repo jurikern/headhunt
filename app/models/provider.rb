@@ -1,9 +1,7 @@
 class Provider < ActiveRecord::Base
-  AUTHORIZED_PROVIDERS = ['twitter', 'facebook', 'linkedin', 'google_oauth2', 'github']
-
   belongs_to :user
   attr_accessible :name, :uid
 
-  validates :name, :presence => true, :inclusion => { in: AUTHORIZED_PROVIDERS }
+  validates :name, :presence => true, :inclusion => { in: User.omniauth_providers.map{ |i|i.to_s } }
   validates :uid,  :presence => true, :uniqueness => { scope: [:name] }
 end

@@ -53,7 +53,7 @@ module AuthorizeBehavior
             if user.nil?
               user = User.new({
                   username: User.generate_random_username(username),
-                  email:    email.nil?    ? User.generate_random_email    : email,
+                  email:    email.nil? ? User.generate_random_email : email,
                   password: Devise.friendly_token[4,20]
               })
               user.skip_confirmation!
