@@ -203,10 +203,13 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   # ==> OmniAuth
-  config.omniauth :facebook, 'APP_ID', 'APP_SECRET', :scope => 'email, offline_access'
-  config.omniauth :google_oauth2, '742606373363.apps.googleusercontent.com',
-                                  'Wge-bLE0iQfvMm4iNCNgsx3_',
-                                  { access_type: 'offline', approval_prompt: '' }
+  config.omniauth :google_oauth2, '742606373363.apps.googleusercontent.com', 'Wge-bLE0iQfvMm4iNCNgsx3_',
+                  { access_type: 'offline', approval_prompt: '' }
+  config.omniauth :facebook, '522177861127161',        '26374b6dd0d537fcf0a46f03d7b9030e',
+                  :scope => 'email, offline_access'
+  config.omniauth :linkedin, 'ca0vojq6kqen',           'JTlvJokXi5KnZtrJ'
+  config.omniauth :github,   '704222bbefc64a20f1e7',   '16768f6cb3120e38dd39ce1d5c82b56788d5b036'
+  config.omniauth :twitter,  'difV79zocHOemc3dfkofHw', 'j0JI2BCghCB4k0Y7T5kzSdnayzz5rlbepnIIuorU'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

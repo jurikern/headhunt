@@ -44,6 +44,6 @@ ActiveRecord::Schema.define(:version => 20121024191033) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
-  add_foreign_key "providers", "users", :name => "providers_user_id_fk"
+  add_foreign_key "providers", "users", :name => "providers_user_id_fk", :dependent => :delete
 
 end

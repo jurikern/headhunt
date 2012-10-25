@@ -16,13 +16,28 @@ module AuthorizeBehavior
       end
 
       def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
+        provider_name, uid, email, username = auth.provider, auth.uid, auth.info.email, auth.info.nickname
+        User.find_or_create_and_confirm_by(provider_name, uid, email, username)
+      end
+
+      def self.find_for_google_oauth2(auth, signed_in_resource=nil)
         provider_name, uid, email = auth.provider, auth.uid, auth.info.email
         User.find_or_create_and_confirm_by(provider_name, uid, email, nil)
       end
 
-      def self.find_for_google_oauth2(auth, signed_in_resource=nil)
-        provider_name, uid, email = auth.provider, auth.uid, auth.info['email']
+      def self.find_for_linkedin_oauth(auth, signed_in_resource=nil)
+        provider_name, uid, email = auth.provider, auth.uid, auth.info.email
         User.find_or_create_and_confirm_by(provider_name, uid, email, nil)
+      end
+
+      def self.find_for_github_oauth(auth, signed_in_resource=nil)
+        provider_name, uid, email, username = auth.provider, auth.uid, auth.info.email, auth.info.nickname
+        User.find_or_create_and_confirm_by(provider_name, uid, email, username)
+      end
+
+      def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
+        provider_name, uid, username = auth.provider, auth.uid, auth.info.nickname
+        User.find_or_create_and_confirm_by(provider_name, uid, nil, username)
       end
 
       protected
@@ -37,7 +52,7 @@ module AuthorizeBehavior
 
             if user.nil?
               user = User.new({
-                  username: username.nil? ? User.generate_random_username : username,
+                  username: User.generate_random_username(username),
                   email:    email.nil?    ? User.generate_random_email    : email,
                   password: Devise.friendly_token[4,20]
               })
@@ -62,10 +77,10 @@ module AuthorizeBehavior
         User.generate_random_email
       end
 
-      def self.generate_random_username
-        random_username = "user.#{Random.rand(99999999)}"
+      def self.generate_random_username(username = nil)
+        random_username = username || "user.#{Random.rand(99999999)}"
         return random_username unless User.exists?(username: random_username)
-        User.generate_random_username
+        User.generate_random_username(nil)
       end
 
     end

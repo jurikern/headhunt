@@ -8,7 +8,7 @@ class CreateProviders < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_foreign_key :providers, :users, depndent: :delete
+    add_foreign_key :providers, :users, dependent: :delete
     add_index       :providers, [:name, :uid], unique: true
   end
 end
