@@ -1,5 +1,5 @@
 class Provider < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, touch: true
   attr_accessible :name, :uid
 
   validates :name, :presence => true, :inclusion => { in: User.omniauth_providers.map{ |i|i.to_s } }
