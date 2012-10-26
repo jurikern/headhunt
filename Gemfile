@@ -30,3 +30,5 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-linkedin'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
+
+gem 'globalize3'
