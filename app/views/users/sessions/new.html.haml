@@ -1,16 +1,9 @@
-%h2 Sign in
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  %div
-    = f.label :login
-    %br/
-    = f.text_field :login, :autofocus => true, :placeholder => "Email or username"
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password
+= simple_form_for resource, as: resource_name, url: session_path(resource_name), class: 'form-horizontal' do |f|
+  %legend= t('label.sign_in')
+  = f.input :login, autofocus: true, placeholder: t('label.email_or_username')
+  = f.input :password
   - if devise_mapping.rememberable?
-    %div
-      = f.check_box :remember_me
-      = f.label :remember_me
-  %div= f.submit "Sign in"
+    = f.input :remember_me, as: :boolean, inline_label: t('label.remember_me'), label: false
+  .form-actions= f.submit t('button.sign_in'), class: 'btn btn-success'
+
 = render "users/shared/links"
