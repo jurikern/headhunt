@@ -4,13 +4,11 @@ gem 'rails', '3.2.8'
 
 group :assets do
   gem 'sass-rails'
-  gem 'bootstrap-sass'
   gem 'coffee-rails'
   gem 'execjs'
   gem 'therubyracer', :platforms => :ruby
   gem 'uglifier'
   gem 'yui-compressor'
-  gem 'bootswatch-rails'
 end
 
 group :development do
@@ -23,6 +21,7 @@ gem 'pg'
 gem 'foreigner'
 gem 'jquery-rails'
 gem 'haml-rails'
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 gem 'devise'
 gem 'devise-encryptable'
