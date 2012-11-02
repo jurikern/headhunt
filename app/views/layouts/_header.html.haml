@@ -1,0 +1,12 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      %a.brand(href=root_path)= '{ Headhunt }'
+      %ul.nav.pull-right
+        %li
+          - unless user_signed_in?
+            = link_to "#{t('button.sign_in')} <%= #{t('label.username')} %>", new_user_session_path
+          - else
+            = link_to "#{t('button.edit')} <%= #{current_user.username.capitalize} %>", edit_user_registration_path
+        - if user_signed_in?
+          %li= link_to t('button.sign_out'), destroy_user_session_path, method: :delete, :data => { confirm: t('label.confirm') }

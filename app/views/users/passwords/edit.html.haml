@@ -1,0 +1,14 @@
+.span6.offset3#change-password-form-container
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), :html => { method: :put, class: 'form-horizontal', autocomplete: 'off' }) do |f|
+    %fieldset
+      %legend
+        %h3= t('label.change_your_password')
+      = f.input :reset_password_token, as: :hidden
+      = f.input :password, autofocus: true, required: true
+      = f.input :password_confirmation, label: t('label.confirm_new_password'), required: true
+      .form-actions
+        = f.submit t('button.change_your_password'), class: 'btn btn-success btn-large'
+        - unless user_signed_in?
+          %br
+          %br
+          %p= link_to t('button.sign_in'), new_user_session_path

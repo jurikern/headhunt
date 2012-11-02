@@ -1,5 +1,14 @@
 en:
   label:
     sign_in: 'Sign In'
+    sign_in_form: 'Sign in Form'
+    sign_up_form: 'Sign up Form'
     email_or_username: 'Email or username'
-    remember_me: 'Remember me'
+    username: 'username'
+    confirm: 'Are you sure?'
+    or_sign_in_via: 'Or Sign in via'
+    keep_me: 'Keep me signed in'
+    forgot_your_password: 'Forgot your password?'
+    resend_confirmation_instructions: 'Resend confirmation instructions'
+    change_your_password: 'Change your password'
+    confirm_new_password: 'Confirm new password'

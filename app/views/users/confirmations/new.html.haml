@@ -1,9 +1,12 @@
-%h2 Resend confirmation instructions
-= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
-  = devise_error_messages!
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email, :autofocus => true
-  %div= f.submit "Resend confirmation instructions"
-= render "users/shared/links"
+.span6.offset3#resend-confirmation-form-container
+  = simple_form_for(resource, :url => confirmation_path(resource_name), :html => { method: :post, class: 'form-horizontal', autocomplete: 'off' }) do |f|
+    %fieldset
+      %legend
+        %h3= t('label.resend_confirmation_instructions')
+      = f.input :email, autofocus: true, required: true
+      .form-actions
+        = f.submit t('button.resend_confirmation_instructions'), class: 'btn btn-success btn-large'
+        %br
+        %br
+        %p= link_to t('button.sign_in'), new_user_session_path
+        %p= link_to t('button.register_again'), new_user_registration_path

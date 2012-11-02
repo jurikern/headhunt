@@ -1,3 +1,6 @@
+- unless user_signed_in?
+  %h3= "#{t('label.or_sign_in_via')}:"
+
 - User.omniauth_providers.each do |provider|
   - if user_signed_in?
     - has_provider = current_user.include_provider?(provider.to_s)
@@ -6,4 +9,6 @@
     - if has_provider
       = link_to omniauth_callback_path(provider.to_s), method: :delete, :data => { confirm: 'Are you sure?' } do
         = 'Delete'
-  %br/
+    %br/
+  - else
+    = link_to "#{Provider.put_name(provider.to_s).capitalize}", omniauth_authorize_path(resource_name, provider), class: 'btn btn-small'

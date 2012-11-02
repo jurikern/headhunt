@@ -2,3 +2,13 @@ en:
   button:
     sign_up: 'Sign up'
     sign_in: 'Sign in'
+    sign_out: 'Sign out?'
+    edit: 'Edit'
+    recover_password: 'Forgot your password?'
+    send_confimation: "Didn't receive confirmation instructions?"
+    already_registered: 'Already registered? Sign In'
+    not_registered: 'Not registered? Sign up'
+    register_again: 'To register again? Sign up'
+    send_reset_password_instructions: 'Send me reset password instructions'
+    resend_confirmation_instructions: 'Resend confirmation instructions'
+    change_your_password: 'Change your password'

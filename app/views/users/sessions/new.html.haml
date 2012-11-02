@@ -1,9 +1,19 @@
-= simple_form_for resource, as: resource_name, url: session_path(resource_name), class: 'form-horizontal' do |f|
-  %legend= t('label.sign_in')
-  = f.input :login, autofocus: true, placeholder: t('label.email_or_username')
-  = f.input :password
-  - if devise_mapping.rememberable?
-    = f.input :remember_me, as: :boolean, inline_label: t('label.remember_me'), label: false
-  .form-actions= f.submit t('button.sign_in'), class: 'btn btn-success'
-
-= render "users/shared/links"
+.span6.offset3#sign-in-form-container
+  = simple_form_for :user, url: session_path(resource_name), :html => { class: 'form-horizontal', autocomplete: 'off' } do |f|
+    %fieldset
+      %legend
+        %h3= t('label.sign_in_form')
+    = render 'layouts/flashes'
+    = f.input :login, autofocus: true, placeholder: t('label.email_or_username')
+    = f.input :password, placeholder: '*'*Random.rand(4..10)
+    = f.input :remember_me, as: :boolean, inline_label: t('label.keep_me'), label: false, :input_html => { checked: true }
+    .form-actions
+      = f.submit t('button.sign_in'), class: 'btn btn-success btn-large'
+      &nbsp;or&nbsp;
+      = link_to t('button.sign_up'), new_user_registration_path, class: 'btn btn-large'
+      %br/
+      %br/
+      %p= link_to t('button.recover_password'), new_password_path(resource_name)
+      %p= link_to t('button.send_confimation'), new_confirmation_path(resource_name)
+      %br/
+      = render 'users/shared/providers'
