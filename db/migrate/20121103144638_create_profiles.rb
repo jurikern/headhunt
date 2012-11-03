@@ -13,6 +13,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.string  :state_code,    null: false, default: ''
       t.string  :city,          null: false, default: ''
       t.string  :address,       null: false, default: ''
+      t.text    :description,   null: false, default: ''
 
       t.timestamps
     end

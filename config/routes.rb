@@ -1,4 +1,6 @@
 Headhunt::Application.routes.draw do
+  mount RedactorRails::Engine => '/redactor_rails'
+
   root to: 'main#index'
 
   devise_for :users, :path => '',
@@ -26,4 +28,5 @@ Headhunt::Application.routes.draw do
   scope module: :users do
     resources :profiles
   end
+  resources :companies
 end

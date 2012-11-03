@@ -1,4 +1,4 @@
-.span6.offset3#edit-form-container
+.span10.offset1#edit-form-container
   = render 'users/registrations/breadcrumbs'
   = render 'layouts/flashes'
   %div{ id: 'profile' }
@@ -8,6 +8,7 @@
           %h3= "\\#{t('label.my_public_profile')}"
 
         = f.input :full_name
+        = f.input :description, label: t('label.about_me'), :input_html => { class: 'redactor' }
         = f.input :date_of_birth, start_year: Date.today.year - 90,
                                   end_year:   Date.today.year - 12,
                                   prompt: []
@@ -50,7 +51,7 @@
     = go_to_top_link
     %br/
     %br/
-    = render 'users/shared/providers'
+    .span6= render 'users/shared/providers'
 
   %div{ id: 'cancel-account'}
     %br/
@@ -59,9 +60,9 @@
     = go_to_top_link
     %br/
     %br/
-    %p
+    .span6
       %b= "#{t('label.unhappy')}?"
-      = link_to t('button.delete_my_account'), registration_path(:user), :data => { confirm: t('label.confirm') }, :method => :delete, class: 'btn btn-danger btn-small'
+      = link_to t('button.delete_my_account'), registration_path(:user), :data => { confirm: t('label.confirm') }, :method => :delete, class: 'btn btn-danger btn-small pull-right'
 
 - if @section
   %script{ type: 'text/javascript' }

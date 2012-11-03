@@ -1,0 +1,13 @@
+.navbar-fixed-bottom
+  .navbar-inner
+    .container
+      .navbar
+        %ul.nav
+          %li
+            = link_to '' do
+              = raw '// &copy; All rights reserved.'
+              = Time.current.year
+        - if user_signed_in?
+          .pull-right
+            = link_to 'My CV Market', '#', class: 'btn btn-info btn-small'
+            = link_to 'My companies', companies_path, class: 'btn btn-success btn-small'

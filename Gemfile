@@ -35,4 +35,7 @@ gem 'omniauth-twitter'
 
 gem 'simple_form'
 gem 'carmen-rails'
+gem 'redactor-rails'
+gem 'carrierwave'
+gem 'mini_magick'
 gem 'globalize3'
