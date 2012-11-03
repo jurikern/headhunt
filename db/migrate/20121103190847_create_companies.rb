@@ -4,7 +4,6 @@ class CreateCompanies < ActiveRecord::Migration
       t.string :name,  null: false, default: ''
       t.string :title, null: false, default: ''
 
-
       t.timestamps
     end
   end
