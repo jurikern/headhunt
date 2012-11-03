@@ -11,22 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103144638) do
+ActiveRecord::Schema.define(:version => 20121103190847) do
+
+  create_table "companies", :force => true do |t|
+    t.string   "name",       :default => "", :null => false
+    t.string   "title",      :default => "", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
 
   create_table "profiles", :force => true do |t|
-    t.integer  "user_id",      :default => 0,  :null => false
-    t.string   "full_name",    :default => "", :null => false
-    t.string   "email",        :default => "", :null => false
-    t.string   "phone",        :default => "", :null => false
-    t.string   "skype",        :default => "", :null => false
-    t.string   "country",      :default => "", :null => false
-    t.string   "country_code", :default => "", :null => false
-    t.string   "state",        :default => "", :null => false
-    t.string   "state_code",   :default => "", :null => false
-    t.string   "city",         :default => "", :null => false
-    t.string   "address",      :default => "", :null => false
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.integer  "user_id",       :default => 0,  :null => false
+    t.string   "full_name",     :default => "", :null => false
+    t.date     "date_of_birth"
+    t.string   "email",         :default => "", :null => false
+    t.string   "phone",         :default => "", :null => false
+    t.string   "skype",         :default => "", :null => false
+    t.string   "country",       :default => "", :null => false
+    t.string   "country_code",  :default => "", :null => false
+    t.string   "state",         :default => "", :null => false
+    t.string   "state_code",    :default => "", :null => false
+    t.string   "city",          :default => "", :null => false
+    t.string   "address",       :default => "", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "providers", :force => true do |t|

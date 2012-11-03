@@ -8,6 +8,9 @@
           %h3= "\\#{t('label.my_public_profile')}"
 
         = f.input :full_name
+        = f.input :date_of_birth, start_year: Date.today.year - 90,
+                                  end_year:   Date.today.year - 12,
+                                  prompt: []
         = f.input :country_code, label: t('label.country') do
           = f.country_select :country_code, prompt: "#{t('label.please_select_a_country')}:", priority: %w(EE LV LT FI SE)
         = f.input :state_code, label: t('label.state') do
