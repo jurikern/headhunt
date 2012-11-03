@@ -20,7 +20,7 @@ class Users::ProfilesController < ApplicationController
       redirect_to edit_user_registration_path
     else
       @section = 'profile'
-      render 'users/registrations/edit'
+      render 'users/registrations/edit', :locals => { resource: current_user }
     end
   end
 
