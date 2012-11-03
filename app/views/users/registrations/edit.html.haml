@@ -1,10 +1,12 @@
 .span6.offset3#edit-form-container
+  = render 'users/registrations/breadcrumbs'
   = render 'layouts/flashes'
   %div{ id: 'profile' }
     = simple_form_for @profile, :html => { class: 'form-horizontal', autocomplete: 'off' } do |f|
       %fieldset
         %legend
           %h3= "\\#{t('label.my_public_profile')}"
+
         = f.input :full_name
         = f.input :country_code, label: t('label.country') do
           = f.country_select :country_code, prompt: "#{t('label.please_select_a_country')}:", priority: %w(EE LV LT FI SE)
@@ -25,6 +27,9 @@
       %fieldset
         %legend
           %h3= "\\#{t('label.edit')} <%= #{t('label.me')} %>"
+        = go_to_top_link
+        %br/
+        %br/
         = f.input :username, required: true
         = f.input :email, required: true
         = f.input :password, label: t('label.new_password'), hint: t('label.leave_blank_new_password')
@@ -39,12 +44,18 @@
     %br/
     %legend
       %h3= "\\#{t('label.social_connections')}"
+    = go_to_top_link
+    %br/
+    %br/
     = render 'users/shared/providers'
 
   %div{ id: 'cancel-account'}
     %br/
     %legend
       %h3= "\\#{t('label.cancel_my_account')}"
+    = go_to_top_link
+    %br/
+    %br/
     %p
       %b= "#{t('label.unhappy')}?"
       = link_to t('button.delete_my_account'), registration_path(:user), :data => { confirm: t('label.confirm') }, :method => :delete, class: 'btn btn-danger btn-small'
