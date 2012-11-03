@@ -21,4 +21,9 @@ Headhunt::Application.routes.draw do
       match ':name/destroy' => 'users/omniauth_callbacks#destroy', via: :delete, as: :omniauth_callback
     end
   end
+
+  get '/profiles/subregion_options' => 'users/profiles#subregion_options'
+  scope module: :users do
+    resources :profiles
+  end
 end

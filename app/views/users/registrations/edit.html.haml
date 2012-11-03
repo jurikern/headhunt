@@ -1,15 +1,34 @@
 .span6.offset3#edit-form-container
-  = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { method: :put, class: 'form-horizontal', autocomplete: 'off' }) do |f|
+  = render 'layouts/flashes'
+  = simple_form_for @profile, :html => { class: 'form-horizontal', autocomplete: 'off' } do |f|
     %fieldset
       %legend
-        %h3= "#{t('label.edit')} <%= #{t('label.me')} %>"
-      = render 'layouts/flashes'
+        %h3= "\\#{t('label.my_public_profile')}"
+      = f.input :full_name
+      = f.input :country_code, label: 'Country' do
+        = f.country_select :country_code, prompt: 'Please select a country:', priority: %w(EE LV LT FI SE)
+      = f.input :state_code, label: 'State' do
+        = render partial: 'users/profiles/subregion_select', locals: { parent_region: f.object.country_code }
+      = f.input :city
+      = f.input :address
+      = f.input :email
+      = f.input :phone
+      = f.input :skype
+      .form-actions
+        = f.submit t('button.update'), class: 'btn btn-success btn-large'
+        &nbsp;#{t('label.or')}&nbsp;
+        %button{ type: :reset, class: 'btn btn-large' }= t('button.reset')
+
+  = simple_form_for(current_user, url: edit_user_registration_path, :html => { method: :put, class: 'form-horizontal', autocomplete: 'off' }) do |f|
+    %fieldset
+      %legend
+        %h3= "\\#{t('label.edit')} <%= #{t('label.me')} %>"
       = f.input :username, autofocus: true, required: true
       = f.input :email, required: true
       = f.input :password, label: t('label.new_password'), hint: t('label.leave_blank_new_password')
       = f.input :current_password, hint: t('label.we_need_your_current_password'), required: true do
         = f.password_field :current_password
-        = link_to t('button.reset_password'), new_password_path(resource_name), class: 'btn btn-danger btn-small', :data => { confirm: t('label.confirm') }
+        = link_to t('button.reset_password'), new_password_path(:user), class: 'btn btn-danger btn-small', :data => { confirm: t('label.confirm') }
       .form-actions
         = f.submit t('button.update'), class: 'btn btn-success btn-large', :data => { confirm: t('label.confirm') }
         &nbsp;#{t('label.or')}&nbsp;
@@ -23,4 +42,4 @@
     %h3= "\\#{t('label.cancel_my_account')}"
   %p
     %b= "#{t('label.unhappy')}?"
-    = link_to t('button.delete_my_account'), registration_path(resource_name), :data => { confirm: t('label.confirm') }, :method => :delete, class: 'btn btn-danger btn-small'
+    = link_to t('button.delete_my_account'), registration_path(:user), :data => { confirm: t('label.confirm') }, :method => :delete, class: 'btn btn-danger btn-small'

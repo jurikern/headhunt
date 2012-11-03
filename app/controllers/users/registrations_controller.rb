@@ -8,6 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
+    @profile = current_user.profile.nil? ? current_user.build_profile : current_user.profile
     super
   end
 

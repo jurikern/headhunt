@@ -34,5 +34,5 @@ gem 'omniauth-github'
 gem 'omniauth-twitter'
 
 gem 'simple_form'
-
+gem 'carmen-rails'
 gem 'globalize3'

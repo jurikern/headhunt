@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include AuthorizeBehavior
 
   has_many :providers
+  has_one  :profile
 
   devise :database_authenticatable, :registerable, :recoverable,
          :confirmable, :rememberable, :validatable, :encryptable, :omniauthable
