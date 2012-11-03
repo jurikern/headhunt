@@ -1,5 +1,11 @@
 .span10.offset1#edit-form-container
-  = gravatar_image_tag(current_user.email, :gravatar => { default: :monsterid })
+  #user-info-container
+    .row-fluid
+      .span2{ style: 'margin-top: 20px;' }= gravatar_image_tag(current_user.email, :gravatar => { default: :monsterid })
+      .span8
+        %h2= "#{t('label.hello')}, <%= #{current_user.username.capitalize} %>"
+        %h3= t('label.here_you_will_manage_your_account')
+  %br/
   = render 'users/registrations/breadcrumbs'
   = render 'layouts/flashes'
   %div{ id: 'profile' }
@@ -30,7 +36,7 @@
     = simple_form_for(resource, url: user_registration_path, :html => { method: :put, class: 'form-horizontal', autocomplete: 'off' }) do |f|
       %fieldset
         %legend
-          %h3= "\\#{t('label.edit')} <%= #{t('label.me')} %>"
+          %h3= "\\#{t('label.basic_account')}"
         = go_to_top_link
         %br/
         %br/
