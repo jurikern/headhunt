@@ -20,7 +20,8 @@
           &nbsp;#{t('label.or')}&nbsp;
           %button{ type: :reset, class: 'btn btn-large' }= t('button.reset')
   %div{ id: 'account' }
-    = simple_form_for(resource || current_user, url: user_registration_path, :html => { method: :put, class: 'form-horizontal', autocomplete: 'off' }) do |f|
+    - resource ||= current_user
+    = simple_form_for(resource, url: user_registration_path, :html => { method: :put, class: 'form-horizontal', autocomplete: 'off' }) do |f|
       %fieldset
         %legend
           %h3= "\\#{t('label.edit')} <%= #{t('label.me')} %>"

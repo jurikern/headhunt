@@ -7,17 +7,19 @@ class Users::ProfilesController < ApplicationController
       flash[:notice] = t('devise.registrations.updated')
       redirect_to edit_user_registration_path
     else
-      render template: 'users/registrations/edit'
+      @section = 'profile'
+      render 'users/registrations/edit'
     end
   end
 
   def update
     @profile = current_user.profile
-    @section = 'profile'
+
     if @profile.update_attributes(params[:profile])
       flash[:notice] = t('devise.registrations.updated')
       redirect_to edit_user_registration_path
     else
+      @section = 'profile'
       render 'users/registrations/edit'
     end
   end
