@@ -6,9 +6,9 @@
         %legend
           %h3= "\\#{t('label.my_public_profile')}"
         = f.input :full_name
-        = f.input :country_code, label: 'Country' do
-          = f.country_select :country_code, prompt: 'Please select a country:', priority: %w(EE LV LT FI SE)
-        = f.input :state_code, label: 'State' do
+        = f.input :country_code, label: t('label.country') do
+          = f.country_select :country_code, prompt: "#{t('label.please_select_a_country')}:", priority: %w(EE LV LT FI SE)
+        = f.input :state_code, label: t('label.state') do
           = render partial: 'users/profiles/subregion_select', locals: { parent_region: f.object.country_code }
         = f.input :city
         = f.input :address

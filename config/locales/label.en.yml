@@ -23,3 +23,7 @@ en:
     my_public_profile: 'My public Profile'
     your_profile_successfully_saved: 'Your profile successfully saved.'
     your_profile_successfully_updated: 'Your profile successfully updated.'
+    country: 'Country'
+    state: 'State'
+    please_select_a_country: 'Please select a country'
+    please_select_a_country_above: 'Please select a country above'
