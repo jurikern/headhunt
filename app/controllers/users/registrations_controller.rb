@@ -8,11 +8,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
-    @profile = current_user.profile.nil? ? current_user.build_profile : current_user.profile
+    bind_profile
     super
   end
 
   def update
+    bind_profile
     super
+  end
+
+  protected
+
+  def bind_profile
+    @profile = current_user.profile.nil? ? current_user.build_profile : current_user.profile
+  end
+
+  def after_sign_up_path_for(resource)
+    edit_user_registration_path
+  end
+
+  def after_update_path_for(resource)
+    edit_user_registration_path
   end
 end

@@ -4,7 +4,7 @@ class Users::ProfilesController < ApplicationController
   def create
     @profile = current_user.build_profile(params[:profile])
     if @profile.save
-      flash[:notice] = t('label.your_profile_successfully_saved')
+      flash[:notice] = t('devise.registrations.updated')
       redirect_to edit_user_registration_path
     else
       render template: 'users/registrations/edit'
@@ -14,7 +14,7 @@ class Users::ProfilesController < ApplicationController
   def update
     @profile = current_user.profile
     if @profile.update_attributes(params[:profile])
-      flash[:notice] = t('label.your_profile_successfully_updated')
+      flash[:notice] = t('devise.registrations.updated')
       redirect_to edit_user_registration_path
     else
       render 'users/registrations/edit'
