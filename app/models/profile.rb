@@ -5,7 +5,11 @@ class Profile < ActiveRecord::Base
 
   validates :full_name, allow_blank: true, format: /\A[A-z\s\-\.]+\z/
 
-  def description=(value)
-    write_attribute(:description, Loofah.fragment(read_attribute(:description)).scrub!(:strip).to_s)
+  before_save :perform_attributes!
+
+  protected
+
+  def perform_attributes!
+    self.description = Loofah.fragment(self.description).scrub!(:escape).to_s
   end
 end
