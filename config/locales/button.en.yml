@@ -14,7 +14,7 @@ en:
     change_your_password: 'Change your password'
     update: 'Update'
     reset_password: 'Reset password'
-    delete_my_account: 'Okay, Delete my account'
+    delete_my_account: 'Delete my account'
     reset: 'Reset'
     add: 'Add'
     delete: 'Delete'

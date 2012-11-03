@@ -42,7 +42,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     provider = request.env['omniauth.auth'].provider.capitalize
 
     if @user.persisted?
-      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: provider
+      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: Provider.put_name(provider)
       redirect_path = user_signed_in? ? edit_user_registration_path : root_path
       sign_in @user, :event => :authentication
       redirect_to redirect_path

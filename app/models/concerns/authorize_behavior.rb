@@ -17,38 +17,38 @@ module AuthorizeBehavior
 
       def self.find_for_facebook_oauth(auth, signed_in_resource = nil)
         provider_name, uid, email, username = auth.provider, auth.uid, auth.info.email, auth.info.nickname
-        User.find_or_create_and_confirm_by(provider_name, uid, email, username, signed_in_resource)
+        User.find_or_create_and_confirm_by(provider_name, uid, email, username, signed_in_resource, true)
       end
 
       def self.find_for_google_oauth2(auth, signed_in_resource=nil)
         provider_name, uid, email = auth.provider, auth.uid, auth.info.email
-        User.find_or_create_and_confirm_by(provider_name, uid, email, nil, signed_in_resource)
+        User.find_or_create_and_confirm_by(provider_name, uid, email, nil, signed_in_resource, true)
       end
 
       def self.find_for_linkedin_oauth(auth, signed_in_resource=nil)
         provider_name, uid, email = auth.provider, auth.uid, auth.info.email
-        User.find_or_create_and_confirm_by(provider_name, uid, email, nil, signed_in_resource)
+        User.find_or_create_and_confirm_by(provider_name, uid, email, nil, signed_in_resource, true)
       end
 
       def self.find_for_github_oauth(auth, signed_in_resource=nil)
         provider_name, uid, email, username = auth.provider, auth.uid, auth.info.email, auth.info.nickname
-        User.find_or_create_and_confirm_by(provider_name, uid, email, username, signed_in_resource)
+        User.find_or_create_and_confirm_by(provider_name, uid, email, username, signed_in_resource, true)
       end
 
       def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
         provider_name, uid, username = auth.provider, auth.uid, auth.info.nickname
-        User.find_or_create_and_confirm_by(provider_name, uid, nil, username, signed_in_resource)
+        User.find_or_create_and_confirm_by(provider_name, uid, nil, username, signed_in_resource, false)
       end
 
       protected
 
-      def self.find_or_create_and_confirm_by(provider_name, uid, email = nil, username = nil, signed_in_resource = nil)
+      def self.find_or_create_and_confirm_by(provider_name, uid, email = nil, username = nil, signed_in_resource = nil, use_email = true)
         provider = Provider.where(name: provider_name, uid: uid).first
         user     = nil
 
         unless provider
           User.transaction do
-            user = username.nil? ? User.find_by_email(email) : User.find_by_username(username)
+            user = use_email ? User.find_by_email(email) : User.find_by_username(username)
 
             if user.nil?
               if signed_in_resource.nil?
