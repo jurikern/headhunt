@@ -14,6 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update
     bind_profile
+    @section = 'account'
     super
   end
 

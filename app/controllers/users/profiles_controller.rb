@@ -13,6 +13,7 @@ class Users::ProfilesController < ApplicationController
 
   def update
     @profile = current_user.profile
+    @section = 'profile'
     if @profile.update_attributes(params[:profile])
       flash[:notice] = t('devise.registrations.updated')
       redirect_to edit_user_registration_path
