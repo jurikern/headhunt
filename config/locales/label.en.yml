@@ -12,3 +12,11 @@ en:
     resend_confirmation_instructions: 'Resend confirmation instructions'
     change_your_password: 'Change your password'
     confirm_new_password: 'Confirm new password'
+    edit: 'Edit'
+    me: 'Me'
+    leave_blank_new_password: "(leave blank if you don't want to change it)"
+    we_need_your_current_password: '(we need your current password to confirm your changes)'
+    cancel_my_account: 'Cancel my account'
+    unhappy: 'Unhappy'
+    social_connections: 'Social connections'
+    or: 'or'

@@ -4,11 +4,12 @@
 - User.omniauth_providers.each do |provider|
   - if user_signed_in?
     - has_provider = current_user.include_provider?(provider.to_s)
-    = link_to omniauth_authorize_path(resource_name, provider) do
-      = "#{has_provider ? 'Update' : 'Add'} #{provider.to_s.titleize} connection"
-    - if has_provider
-      = link_to omniauth_callback_path(provider.to_s), method: :delete, :data => { confirm: 'Are you sure?' } do
-        = 'Delete'
-    %br/
+    %p
+      %span{ class: "label #{has_provider ? 'label-success' : 'label-info'}" }= Provider.put_name(provider.to_s).capitalize
+      - if has_provider
+        = link_to omniauth_callback_path(provider.to_s), method: :delete, :data => { confirm: t('label.confirm') }, class: 'pull-right btn btn-small' do
+          = t('button.delete')
+      = link_to omniauth_authorize_path(resource_name, provider), class: 'pull-right btn btn-small' do
+        = "#{has_provider ? t('button.update') : t('button.add')}"
   - else
     = link_to "#{Provider.put_name(provider.to_s).capitalize}", omniauth_authorize_path(resource_name, provider), class: 'btn btn-small'
