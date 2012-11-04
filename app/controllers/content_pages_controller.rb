@@ -12,8 +12,10 @@ class ContentPagesController < ApplicationController
       redirect_to edit_user_registration_path
     else
       @content_page = user.content_page
-      flash.now[:alert] = view_context.raw "#{t('label.we_recommend_that_you_fill_out')}&nbsp;&nbsp;<a href='#{edit_user_registration_path}#profile' class='btn btn-success btn-small'>#{t('label.public_profile')}</a>"
-      @content_page = user.build_content_page if @content_page.nil?
+      if @content_page.nil?
+        flash.now[:alert] = view_context.raw "#{t('label.we_recommend_that_you_fill_out')}&nbsp;&nbsp;<a href='#{edit_user_registration_path}#profile' class='btn btn-success btn-small'>#{t('label.public_profile')}</a>"
+        @content_page = user.build_content_page
+      end
     end
   end
 

@@ -2,7 +2,7 @@
   .row
     = gravatar_image_tag(user.email, :gravatar => { default: :monsterid })
     %span
-      %h3.pull-right= "{ Hello, I'm <%= #{user.profile.full_name.titleize} %> }"
+      %h3.pull-right= "{ Hello, I'm <%= #{user.profile.full_name.titleize} a.k.a. #{user.username.capitalize} %> }"
       %h4.pull-right
         %i= "// And this is my developer account"
   %br/
