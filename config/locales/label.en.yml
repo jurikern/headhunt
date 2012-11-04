@@ -31,3 +31,9 @@ en:
     basic_account: 'Basic Account'
     hello: 'Hello'
     here_you_will_manage_your_account: "Here you'll manage your account"
+    this_is_not_your_page: 'Oops! This is not your page, try again.'
+    edit_public_page: 'Edit public page'
+    my_public_page: 'My public page'
+    public_profile: 'Public profile'
+    we_recommend_that_you_fill_out: 'We recommend that you fill out'
+    here_you_will_edit_your_public_page: "Here you'll edit your public page"

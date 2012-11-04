@@ -1,8 +1,12 @@
 class User < ActiveRecord::Base
   include AuthorizeBehavior
+  extend FriendlyId
+
+  friendly_id :username, use: :slugged
 
   has_many :providers
   has_one  :profile
+  has_one  :content_page, as: :contentable, dependent: :destroy
 
   devise :database_authenticatable, :registerable, :recoverable,
          :confirmable, :rememberable, :validatable, :encryptable, :omniauthable

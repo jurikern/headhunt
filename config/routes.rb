@@ -29,4 +29,5 @@ Headhunt::Application.routes.draw do
     resources :profiles
   end
   resources :companies
+  resources :content_pages, path: 'content-pages'
 end

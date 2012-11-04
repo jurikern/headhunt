@@ -1,11 +1,10 @@
+- content_for(:title, t('label.edit'))
+
 .span10.offset1#edit-form-container
-  #user-info-container
-    .row-fluid
-      .span2{ style: 'margin-top: 20px;' }= gravatar_image_tag(current_user.email, :gravatar => { default: :monsterid })
-      .span8
-        %h2= "#{t('label.hello')}, <%= #{current_user.username.capitalize} %>"
-        %h3= t('label.here_you_will_manage_your_account')
-  %br/
+  = render 'shared/user_info',
+      title: t('label.here_you_will_manage_your_account'),
+      button: link_to(t('button.edit_public_page'), edit_content_page_path(current_user.slug), class: 'btn btn-success btn-large', style: 'margin-top: 35px;')
+
   = render 'users/registrations/breadcrumbs'
   = render 'layouts/flashes'
   %div{ id: 'profile' }

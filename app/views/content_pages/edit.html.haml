@@ -1,0 +1,11 @@
+- content_for(:title, t('label.edit_public_page'))
+
+.span10.offset1#edit-content-page-form-container
+  = render 'shared/user_info', title: t('label.here_you_will_edit_your_public_page'), button: nil
+  = render 'layouts/flashes'
+  = simple_form_for @content_page, :html => { class: 'form-horizontal', autocomplete: 'off' } do |f|
+    %fieldset
+      %legend
+        %h3= "\\#{t('label.my_public_page')}"
+
+      = f.input :html, label: false, :input_html => { class: 'redactor span10' }

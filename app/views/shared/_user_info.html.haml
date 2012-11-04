@@ -1,0 +1,9 @@
+#user-info-container
+  .row-fluid
+    .span2{ style: 'margin-top: 20px;' }= gravatar_image_tag(current_user.email, :gravatar => { default: :monsterid })
+    .span6
+      %h2= "#{t('label.hello')}, <%= #{current_user.username.capitalize} %>"
+      %h3= title
+    - unless button.nil?
+      .span2= button
+%br/

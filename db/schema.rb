@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103214503) do
+ActiveRecord::Schema.define(:version => 20121103233411) do
 
   create_table "companies", :force => true do |t|
     t.string   "name",       :default => "", :null => false
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(:version => 20121103214503) do
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
   end
+
+  create_table "content_pages", :force => true do |t|
+    t.integer  "contentable_id"
+    t.string   "contentable_type"
+    t.text     "html",             :default => "", :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "content_pages", ["contentable_id", "contentable_type"], :name => "index_content_pages_on_contentable_id_and_contentable_type", :unique => true
 
   create_table "profiles", :force => true do |t|
     t.integer  "user_id",       :default => 0,  :null => false
@@ -69,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20121103214503) do
     t.string   "username",               :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "password_salt",          :default => "", :null => false
+    t.string   "slug",                   :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -83,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20121103214503) do
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
   add_foreign_key "profiles", "users", :name => "profiles_user_id_fk", :dependent => :delete

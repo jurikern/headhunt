@@ -4,6 +4,7 @@ class Users::ProfilesController < ApplicationController
   def create
     @profile = current_user.build_profile(params[:profile])
     if @profile.save
+      ContentPage.build(current_user, self)
       flash[:notice] = t('devise.registrations.updated')
       redirect_to edit_user_registration_path
     else
@@ -16,6 +17,7 @@ class Users::ProfilesController < ApplicationController
     @profile = current_user.profile
 
     if @profile.update_attributes(params[:profile])
+      ContentPage.build(current_user, self)
       flash[:notice] = t('devise.registrations.updated')
       redirect_to edit_user_registration_path
     else
@@ -31,5 +33,4 @@ class Users::ProfilesController < ApplicationController
   def subregion_options
     render partial: 'users/profiles/subregion_select'
   end
-
 end

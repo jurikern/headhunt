@@ -68,6 +68,7 @@ GEM
       multipart-post (~> 1.1)
     foreigner (1.2.1)
       activerecord (>= 3.0.0)
+    friendly_id (4.0.9)
     globalize3 (0.2.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -217,6 +218,7 @@ DEPENDENCIES
   devise-encryptable
   execjs
   foreigner
+  friendly_id
   globalize3
   gravatar_image_tag
   haml-rails
