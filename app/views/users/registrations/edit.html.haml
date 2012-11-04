@@ -24,9 +24,11 @@
           = render partial: 'users/profiles/subregion_select', locals: { parent_region: f.object.country_code }
         = f.input :city
         = f.input :address
+        = f.input :www, placeholder: 'http://'
         = f.input :email
         = f.input :phone
         = f.input :skype
+        = f.input :github, placeholder: 'http://'
         .form-actions
           = f.submit t('button.update'), class: 'btn btn-success btn-large'
           &nbsp;#{t('label.or')}&nbsp;

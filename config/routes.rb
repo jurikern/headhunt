@@ -3,6 +3,8 @@ Headhunt::Application.routes.draw do
 
   root to: 'main#index'
 
+  match 'u/:user_id' => 'content_pages#show', as: :user_content_page
+
   devise_for :users, :path => '',
              :path_names  => {
                  :sign_in      => 'signin',
@@ -24,7 +26,7 @@ Headhunt::Application.routes.draw do
     end
   end
 
-  get '/profiles/subregion_options' => 'users/profiles#subregion_options'
+  get 'profiles/subregion_options' => 'users/profiles#subregion_options'
   scope module: :users do
     resources :profiles
   end

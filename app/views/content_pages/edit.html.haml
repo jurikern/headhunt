@@ -1,7 +1,8 @@
 - content_for(:title, t('label.edit_public_page'))
 
 .span10.offset1#edit-content-page-form-container
-  = render 'shared/user_info', title: t('label.here_you_will_edit_your_public_page'), button: nil
+  = render 'shared/user_info', title: t('label.here_you_will_edit_your_public_page'),
+    button: link_to(t('button.show_online'), user_content_page_path(current_user.slug), class: 'btn btn-success btn-large', target: '_blank', style: 'margin-top:35px;')
   = render 'layouts/flashes'
   = simple_form_for @content_page, :html => { class: 'form-horizontal', autocomplete: 'off' } do |f|
     %fieldset

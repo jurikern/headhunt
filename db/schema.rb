@@ -31,21 +31,23 @@ ActiveRecord::Schema.define(:version => 20121103233411) do
   add_index "content_pages", ["contentable_id", "contentable_type"], :name => "index_content_pages_on_contentable_id_and_contentable_type", :unique => true
 
   create_table "profiles", :force => true do |t|
-    t.integer  "user_id",       :default => 0,  :null => false
-    t.string   "full_name",     :default => "", :null => false
-    t.date     "date_of_birth"
-    t.string   "email",         :default => "", :null => false
-    t.string   "phone",         :default => "", :null => false
-    t.string   "skype",         :default => "", :null => false
-    t.string   "country",       :default => "", :null => false
-    t.string   "country_code",  :default => "", :null => false
-    t.string   "state",         :default => "", :null => false
-    t.string   "state_code",    :default => "", :null => false
-    t.string   "city",          :default => "", :null => false
-    t.string   "address",       :default => "", :null => false
-    t.text     "description",   :default => "", :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.integer  "user_id",       :default => 0,            :null => false
+    t.string   "full_name",     :default => "",           :null => false
+    t.date     "date_of_birth", :default => '2012-11-04', :null => false
+    t.string   "email",         :default => "",           :null => false
+    t.string   "phone",         :default => "",           :null => false
+    t.string   "skype",         :default => "",           :null => false
+    t.string   "www",           :default => "",           :null => false
+    t.string   "github",        :default => "",           :null => false
+    t.string   "country",       :default => "",           :null => false
+    t.string   "country_code",  :default => "",           :null => false
+    t.string   "state",         :default => "",           :null => false
+    t.string   "state_code",    :default => "",           :null => false
+    t.string   "city",          :default => "",           :null => false
+    t.string   "address",       :default => "",           :null => false
+    t.text     "description",   :default => "",           :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
   end
 
   create_table "providers", :force => true do |t|

@@ -7,6 +7,8 @@ class CreateProfiles < ActiveRecord::Migration
       t.string  :email,         null: false, default: ''
       t.string  :phone,         null: false, default: ''
       t.string  :skype,         null: false, default: ''
+      t.string  :www,           null: false, default: ''
+      t.string  :github,        null: false, default: ''
       t.string  :country,       null: false, default: ''
       t.string  :country_code,  null: false, default: ''
       t.string  :state,         null: false, default: ''
